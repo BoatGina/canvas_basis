@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+</head>
+<style type="text/css">
+	canvas{
+		border:1px solid black;
+	}
+	#kno{
+		width: 500px;
+		height: auto;
+		float: left;
+		font-size: 18px;
+	}
+	img{
+		width: 200px;
+		height: 200px;
+	}
+
+</style>
+
+<script type="text/javascript">
+	window.onload=function(){
+		//获取元素
+		var canvas01=document.getElementById("canvas01");
+		//确定浏览器支持<canvas>元素
+		if(canvas01.getContext){
+
+			//一.引入图像到画布
+			//取得上2d下文
+			var context=canvas01.getContext("2d");
+			//获取图片元素
+			var image=document.images[0];
+			//情景1：drawImage(要绘制的图像，目标图像的x,y)
+			context.drawImage(image,10,10);
+			//情景2：drawImage(要绘制的图像，目标图像的x,y,width,height)
+			//重新取得2d上下文
+			context=canvas02.getContext("2d");
+			context.drawImage(image,10,10,100,100);
+			//情景3：
+			//drawImage(要绘制的图像，源图像的x坐标,源图像的y坐标,源图像的宽,源图像的高,目标图像的x坐标,目标图像的y坐标,目标图像的x宽,目标图像的x高)
+			//重新取得2d上下文
+			context=canvas03.getContext("2d");
+			context.drawImage(image,640,0,640,550,50,50,100,100);
+
+				
+			//二.从画布导出图像
+			//获取图像的数据uri：toDataURL方法传入的是图像的MIME类型格式，可用于导出在canvas元素上绘制的图像
+			var imgURI=canvas03.toDataURL("image/png");
+			//显示图像
+			var image02=document.createElement("img");
+			image02.src=imgURI;
+			document.body.appendChild(image02);
+		}
+
+	}
+
+</script>
+
+<body>
+<!-- canvas元素-->
+<canvas id="canvas01" width="200px" height="200px"></canvas>	
+
+<!-- 图片资源引入 -->
+<img src="./img/img01.jpg" />
+
+<!-- 知识点和问题汇总 -->
+<div id="kno">
+<b>知识点：</b>                                                                                  <br/>
+<strong>1.</strong>引入图像到画布：drawImage 。注：第一个参数可以是html的&lt;img&gt;元素，也可以是另一个&lt;canvas&gt;元素                                                                                          <br/>
+<strong>2.</strong>从画布导出图像：toDataURL。注：图片不能来自其他域                                                <br/>
+<strong>3.</strong>区别：drawImage是2d上下文环境中，toDataURL是canvas对象的方法<br/>
+
+<b>问题：</b>                                                                                    <br/>
+Uncaught SecurityError: Failed to execute 'toDataURL' on 'HTMLCanvasElement': Tainted canvases may not be exported.
+可能遇到跨域问题，待解决。
+</div>
+
+</body>
+</html>

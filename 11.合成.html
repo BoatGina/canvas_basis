@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+</head>
+<style type="text/css">
+	canvas{
+		border:1px solid black;
+	}
+	#kno{
+		width: 500px;
+		height: auto;
+		float: left;
+		font-size: 18px;
+	}
+	img{
+		width: 200px;
+		height: 200px;
+	}
+
+</style>
+
+<script type="text/javascript">
+	window.onload=function(){
+		//获取元素
+		var canvas01=document.getElementById("canvas01");
+		//确定浏览器支持<canvas>元素
+		if(canvas01.getContext){
+
+			//取得上2d下文
+			var context=canvas01.getContext("2d");
+			//绘制红色矩形
+			context.fillStyle="red";
+			context.fillRect(10,10,100,100);
+			//修改全局透明度
+			context.globalAlpha=0.5;
+			//设置合成操作
+			context.globalCompositeOperation="destination-over";
+			//绘制蓝色矩形
+			context.fillStyle="rgba(0,0,255,1)";
+			context.fillRect(50,50,100,100);
+			//重置全局透明度
+			context.globalAlpha=0;
+		}
+
+	}
+
+</script>
+
+<body>
+<!-- canvas元素-->
+<canvas id="canvas01" width="200px" height="200px"></canvas>	
+
+<!-- 图片资源引入 -->
+<img src="./img/img01.jpg" />
+
+<!-- 知识点和问题汇总 -->
+<div id="kno">
+<b>知识点：</b>                                                                                  <br/>
+<strong>1.</strong>两个合成属性：globalAlpha,globalCompositeOperation                            <br/>
+<strong>2.</strong>globalAlpha:表示全局透明度（0~1）                                             <br/>
+<strong>3.</strong>globalCompositeOperation：表示后绘制的图形怎样与先绘制的图形结合              <br/>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+</head>
+<style type="text/css">
+	canvas{
+		border:1px solid black;
+	}
+	#kno{
+		width: 500px;
+		height: auto;
+		float: left;
+		font-size: 18px;
+	}
+
+</style>
+
+<script type="text/javascript">
+	window.onload=function(){
+		//获取元素
+		var canvas01=document.getElementById("canvas01");
+		var canvas02=document.getElementById("canvas02");
+		//确定浏览器支持<canvas>元素
+		if(canvas01.getContext){
+
+			//一.为矩形填充颜色：用fillStyle和fillRect(x,y,width,height)【填充】
+			//取得上2d下文：getContext方法
+			var context=canvas01.getContext("2d");
+			//红色的矩形
+			context.fillStyle="red";
+			context.fillRect(10,10,100,100);
+			//半透明的蓝色矩形
+			context.fillStyle="rgba(0,0,255,0.5)";
+			context.fillRect(75,75,100,100);
+			//用clearRect(x,y,width,height)来清除矩形
+			context.clearRect(85,85,15,15); 
+				
+
+			//二.为矩形描边：用strokeStyle和strokeRect(x,y,width,height)【描边】
+			//重新取得上2d下文：getContext方法
+			context=canvas02.getContext("2d");
+			//设置边宽：lineWidth（可以是任意数值）
+			context.lineWidth=10;
+			//控制线条末端的形状：lineCap（butt /round /square）
+			context.lineCap="square";  //为什么没有效果的？   
+			//控制线条交叉的方式：lineJoin(round /miter /bevel)
+			context.lineJoin="round"; 
+
+			context.strokeStyle="red";
+			context.strokeRect(10,10,100,100);
+			
+			context.strokeStyle="rgba(0,0,255,0.5)";
+			context.strokeRect(75,75,100,100);
+
+			
+
+		}
+
+	}
+
+</script>
+
+<body>
+<!-- canvas元素-->
+<canvas id="canvas01" width="200px" height="200px"></canvas>	
+<canvas id="canvas02" width="200px" height="200px"></canvas>	
+<!-- 知识点和问题汇总 -->
+<div id="kno">
+<b>知识点：</b>                                                                                  <br/>
+<strong>1.</strong> 矩形的三个方法：fillRect、strokeRect和clearRect                              <br/>
+<strong>2.</strong> strokeRect的三个属性：lineWidth、lineCap和lineJoin                           <br/>
+                                                                                                 <br/>
+                                                                                                 <br/>
+<b>问题：</b>                                                                                    <br/>
+strokeRect的lineCap属性貌似效果不明显。
+</div>
+
+</body>
+</html>

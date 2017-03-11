@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+</head>
+<style type="text/css">
+	canvas{
+		border:1px solid black;
+	}
+	#kno{
+		width: 500px;
+		height: auto;
+		float: left;
+		font-size: 18px;
+	}
+
+</style>
+
+<script type="text/javascript">
+	window.onload=function(){
+		//获取元素
+		var canvas01=document.getElementById("canvas01");
+		var canvas02=document.getElementById("canvas02");
+		var canvas03=document.getElementById("canvas03");
+		var canvas04=document.getElementById("canvas04");
+		var canvas05=document.getElementById("canvas05");
+
+		//确定浏览器支持<canvas>元素
+		if(canvas01.getContext){
+
+			//小实验01：时钟 (arc/moveTo/lineTo/stroke/fill)
+			//取得上2d下文：getContext方法
+			var context=canvas01.getContext("2d");
+			//开始路径
+			context.beginPath();
+			//绘制外圆
+			context.arc(100,100,99,0,2*Math.PI,false);
+			//绘制内圆
+			context.moveTo(194,100); //为什么要移到圆内？
+			context.arc(100,100,94,0,2*Math.PI,false);
+			//绘制分针
+			context.moveTo(100,100);
+			context.lineTo(100,15);
+			//绘制时针
+			context.moveTo(100,100);
+			context.lineTo(35,100);
+			//描边路径
+			context.stroke();
+			//填充颜色
+			//context.fill();
+
+
+			//小实验02:学习arc
+			//重新取得2d下文：getContext方法
+			context=canvas02.getContext("2d");
+			context.beginPath();
+			context.arc(100,100,50,0,0.5*Math.PI,true);
+			context.stroke();
+
+			//小实验03：学习bezierCurveTo
+			//重新取得2d下文：getContext方法
+			context=canvas03.getContext("2d");
+			context.beginPath();
+			context.moveTo(100,100);
+			//context.arcTo(150,90,200,100,50);   //这个不知道怎么玩？？？
+			context.bezierCurveTo(120,50,180,80,200,150);
+			context.closePath();
+			context.stroke();
+
+			//小实验04：学习quadraticCurveTo
+			//重新取得2d下文：getContext方法
+			context=canvas04.getContext("2d");
+			context.beginPath();
+			context.moveTo(100,100);
+			context.quadraticCurveTo(120,10,200,100);
+			//context.closePath();
+			context.stroke();
+
+			//小实验05：学习rect
+			//重新取得2d下文：getContext方法
+			context=canvas05.getContext("2d");
+			context.beginPath();
+			context.rect(50,50,100,100);
+			context.rect(75,75,50,50);
+			//context.moveTo(100,100);
+			context.stroke();
+			
+
+		}
+
+	}
+
+</script>
+
+<body>
+<!-- canvas元素-->
+<canvas id="canvas01" width="200px" height="200px"></canvas>	
+<canvas id="canvas02" width="200px" height="200px"></canvas>	
+<canvas id="canvas03" width="200px" height="200px"></canvas>
+<canvas id="canvas04" width="200px" height="200px"></canvas>	
+<canvas id="canvas05" width="200px" height="200px"></canvas>
+
+<!-- 知识点和问题汇总 -->
+<div id="kno">
+<b>知识点：</b>                                                                                 <br/>
+<strong>1.</strong>绘制路径前先调用beginPath()方法，表示要开始绘制新路径                        <br/>
+<strong>2.arc(x,y,r,startAngle,endAngle,counterclockwise)</strong>  【以(x,y)为中心，r为半径，从startAngle角度到endAngle角度，若counterclockwise为false则为顺时针 ，true为逆时针】
+                                                                                                <br/>
+<strong>3. arcTo(x1,y1,x2,y2,r)</strong>  【从上一点绘制到(x2,y2)为之，同时以r半径穿过(x1,y1)】    <br/>
+<strong>4. lineTo(x,y)</strong>  【从上一点绘制一条线段到(x,y)】                                   <br/>
+<strong>5. moveTo(x,y)</strong>  【绘画游标移到(x,y)，为下面画东西做准备】                         <br/>
+<strong>6. rect(x,y,width,height)</strong>  【从(x,y)点开始画矩形路径，不是前面说的独立图像（fillRect/strokeRect），而是路径】                                                                        <br/>
+<strong>7. bezierCurveTo(x1,y1,x2,y2,x,y)</strong>   【从上一点开始绘制弧线到(x,y),中间以(x1,y1)和(x2,y2)为调节点】
+                                                                                                <br/>
+<strong>8. quadraticCurveTo(x1,y1,x,y)</strong>   【从上一点绘制一条弧线到(x,y)，中间以(x1,y1)为调节点】
+                                                                                                <br/>
+<strong>9. closePath()</strong>   【绘制一条连接到路径起点的线条】                             <br/>       
+<strong>10. fill()</strong>   【路径完成后，调用来填充】                                        <br/>    
+<strong>11. stroke()</strong>   【路径完成后，调用来描线】                                      <br/> 
+<strong>12. clip()</strong>   【路径完成后，调用来剪切】                                        <br/>
+<strong>13. isPointInPath(x,y)</strong>   【判断(x,y)是不是在路径上】                           <br/>
+                                                                                                <br/>
+<b>问题：</b> 
+arcTo和clip不知道如何使用                                                                        <br/>
+</div>
+
+</body>
+</html>

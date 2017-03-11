@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+</head>
+<style type="text/css">
+	canvas{
+		border:1px solid black;
+	}
+	#kno{
+		width: 500px;
+		height: auto;
+		float: left;
+		font-size: 18px;
+	}
+	img{
+		width: 200px;
+		height: 200px;
+	}
+
+</style>
+
+<script type="text/javascript">
+	window.onload=function(){
+		//获取元素
+		var canvas01=document.getElementById("canvas01");
+		//确定浏览器支持<canvas>元素
+		if(canvas01.getContext){
+			//取得上2d下文
+			var context=canvas01.getContext("2d"),
+				image=document.images[0],
+				imageData,data,
+				i,len,average,
+				red,green,blue,alpha;
+			//绘制原始图像
+			context.drawImage(image,50,50,100,100);
+			//取得图像数据:getImageData方法，返回的imageData对象有三个属性：width/height/data
+			imageData=context.getImageData(50,50,100,100);
+			//取得imageData对象的data属性，data属性是个数组
+			data=imageData.data;
+			//循环遍历图像数据的每个像素，注意i=i+4
+			for(i=0,len=data.length;i<len;i+=4){
+				//取得每个像素的红、绿、蓝、透明值
+				red=data[i];
+				green=data[i+1];
+				blue=data[i+2];
+				alpha=data[i+3];
+				//取得rgb平均值（备注：floor方法是取整数（如5.99取5）;ceil方法进一位（5.02取6）,round方法四舍五入）
+				average=Math.floor((red+green+blue)/3);
+				//设置颜色值，alpha不变
+				data[i]=average;
+				data[i+1]=average;
+				data[i+2]=average;
+			}
+			//储存修改后的图像数据
+			imageData.data=data;
+			//用putImageData方法将图像数据绘制到画布上
+			context.putImageData(imageData,50,50);
+			
+		}
+
+	}
+
+</script>
+
+<body>
+<!-- canvas元素-->
+<canvas id="canvas01" width="200px" height="200px"></canvas>	
+
+<!-- 图片资源引入 -->
+<img src="img01.jpg" />
+
+<!-- 知识点和问题汇总 -->
+<div id="kno">
+<b>知识点：</b>                                                                                  <br/>
+<strong>1.</strong>取得图像数据:getImageData方法.返回的imageData对象有三个属性：width/height/data<br/>
+<strong>2.</strong>data属性是个数组，第一个元素是数组的前四项（red,green,blue,alpha），这些值都是介于0~255之间。                                                               <br/>
+
+<b>问题：</b>                                                                                    <br/>
+Failed to execute 'getImageData' on 'CanvasRenderingContext2D': The canvas has been tainted by cross-origin data.
+
+</div>
+</body>
+</html>

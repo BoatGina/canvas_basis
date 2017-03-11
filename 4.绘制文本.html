@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+</head>
+<style type="text/css">
+	canvas{
+		border:1px solid black;
+	}
+	#kno{
+		width: 500px;
+		height: auto;
+		float: left;
+		font-size: 18px;
+	}
+
+</style>
+
+<script type="text/javascript">
+	window.onload=function(){
+		//获取元素
+		var canvas01=document.getElementById("canvas01");
+		var canvas02=document.getElementById("canvas02");
+		var canvas03=document.getElementById("canvas03");
+		//确定浏览器支持<canvas>元素
+		if(canvas01.getContext){
+
+			//一.比较textAlign
+				//取得上2d下文
+				var context=canvas01.getContext("2d");
+
+				//引入时钟的模型
+				//开始路径
+				context.beginPath();
+				//绘制外圆
+				context.arc(100,100,99,0,2*Math.PI,false);
+				//绘制内圆
+				context.moveTo(194,100);
+				context.arc(100,100,94,0,2*Math.PI,false);
+				//绘制分针
+				context.moveTo(100,100);
+				context.lineTo(100,15);
+				//绘制时针
+				context.moveTo(100,100);
+				context.lineTo(35,100);
+				//描边路径
+				context.stroke();
+			
+			context.font="bold 14px Arial ";
+			context.textAlign="center";
+			context.textBaseline="middle";
+			context.fillText("12",100,15);
+
+			context.textAlign="start";
+			context.fillText("12",100,40);
+
+			context.textAlign="end";
+			context.fillText("12",100,60);
+
+			//二.比较textBaseline
+				//重新获取2d环境
+				context=canvas02.getContext("2d");
+				//引入时钟的模型
+				//开始路径
+				context.beginPath();
+				//绘制外圆
+				context.arc(100,100,99,0,2*Math.PI,false);
+				//绘制内圆
+				context.moveTo(194,100);
+				context.arc(100,100,94,0,2*Math.PI,false);
+				//绘制分针
+				context.moveTo(100,100);
+				context.lineTo(100,15);
+				//绘制时针
+				context.moveTo(100,100);
+				context.lineTo(35,100);
+				//描边路径
+				context.stroke();
+
+			context.font="bold 14px Arial ";
+			context.textAlign="center";
+			context.textBaseline="middle";
+			context.fillText("12",100,15);
+
+			context.textBaseline="top";
+			context.fillText("12",80,15);
+
+			context.textBaseline="bottom";
+			context.fillText("12",120,15);
+
+			//三.学习measureText
+				//重新获取2d环境
+				context=canvas03.getContext("2d");
+	
+			var fontSize=100;
+			context.font=fontSize+"px Arial";
+			while(context.measureText("hello world!").width>100){
+				fontSize--;
+				context.font=fontSize+"px Arial";
+			}
+			context.textAlign="start";
+			context.textBaseline="middle";
+			context.fillText("hello world!",10,10);
+			context.fillText("font size is"+fontSize+"px",10,50);
+			
+
+		}
+
+	}
+
+</script>
+
+<body>
+<!-- canvas元素-->
+<canvas id="canvas01" width="200px" height="200px"></canvas>	
+<canvas id="canvas02" width="200px" height="200px"></canvas>
+<canvas id="canvas03" width="200px" height="200px"></canvas>	
+
+<!-- 知识点和问题汇总 -->
+<div id="kno">
+<b>知识点：</b>                                                                                  <br/>
+<strong>1.</strong>绘制文本的方法：fillText()和strokeText()，一般用fillText()                    <br/>
+<strong>2.</strong>上述方法的属性：font、textAlign、textBaseline                                 <br/>
+<strong>3.</strong>fillText(文本字符串,x,y,最大像素宽度(可选))                                   <br/>
+<strong>4.</strong>context.font="样式 大小 字体 ";                                               <br/>
+<strong>5.</strong>textAlign：center、start、end                                                 <br/>
+<strong>6.</strong>textBaseline：middle、top、bottom                                             <br/>
+<strong>7.</strong>context.measureText(文本).width                                               <br/>
+
+</div>
+
+</body>
+</html>
